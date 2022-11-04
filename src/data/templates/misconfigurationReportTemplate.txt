@@ -1,0 +1,32 @@
++++
+type="page"
+Title = "_aVDID - _name"
+Description = "_description"
++++
+
+#### _title
+###### Severity _severity
+{{% alert theme="danger" %}}**Description:** _description{{% /alert %}}
+{{% alert theme="info" %}}**Resolution:** _resolution{{% /alert %}}
+- **VulnerabilityID**: _aVDID
+- **Vulnerability URL**: _primaryURL
+- **Message**: _message
+- **ID**: _iD
+- **Class**: _class
+---
+
+| Kind | Namespace | Name | Target | Severity |
+| ---- | --------- | ---- | ------ | -------- |
+| _kind | _namespace | _name | _target | _severity |
+
+--- 
+###### Location (faulty lines highlighted in gray):
+target: _target
+{{< highlight yaml "linenos=inline,hl_lines=_linesToHighlight,linenostart=_firstLineNumber" >}}
+_codeBlock
+{{< / highlight >}}
+
+
+--- 
+
+_references
