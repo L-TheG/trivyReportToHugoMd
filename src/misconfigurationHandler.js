@@ -18,8 +18,9 @@ export function extractMisconfigurations(trivyJsonReport) {
   // Split every vulnerability into its own object
   // merge that with parent object
   let misconfigurations = mergeChildrenWithParentObjs(misconfiguredComponents, "Misconfigurations");
+  let filteredMisconfigurations = misconfigurations.filter((misconf) => misconf.Severity === "HIGH" || misconf.Severity === "CRITICAL");
 
-  return misconfigurations;
+  return filteredMisconfigurations;
 }
 
 export async function createMisconfigurationFiles(misconfigurations) {

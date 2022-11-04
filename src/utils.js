@@ -1,6 +1,28 @@
 import fs from "fs";
 import path from "path";
 
+export function countSeverityKinds(resultsArray) {
+  let severites = {
+    criticalSeverity: 0,
+    highSeverity: 0,
+    overallCount: resultsArray.length,
+  };
+
+  resultsArray.forEach((result) => {
+    switch (result.Severity) {
+      case "CRITICAL":
+        severites.criticalSeverity = severites.criticalSeverity + 1;
+        break;
+      case "HIGH":
+        severites.highSeverity = severites.highSeverity + 1;
+        break;
+      default:
+        break;
+    }
+  });
+  return severites;
+}
+
 // Removes or escapes parts of strings that break mardown files
 export function sanitiseStringForMarkdown(value) {
   let result = value.toString().replace(new RegExp(/\\/g), "\\\\");
