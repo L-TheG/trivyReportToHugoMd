@@ -29,7 +29,6 @@ async function main() {
 function parseArgs() {
   process.argv.forEach((element) => {
     if (element.includes("outDir=")) {
-      console.log("OUT_FOUND");
       let newOutDir = element.split("=")[1];
       changeOutDir(newOutDir);
     }
@@ -42,13 +41,13 @@ async function createIndexFiles(cluserName, vulnSeverityCounts, misconfSeverityC
   const indexTemplate = (await fs.promises.readFile(indexFileTemplate)).toString();
   const mainIndexTemplate = (await fs.promises.readFile(mainIndexFileTemplate)).toString();
 
-  dirs.forEach((dir) => {
+  dirs.forEach((dir, index) => {
     const pathElements = dir.split(path.sep);
     const title = pathElements[pathElements.length - 1];
     // Top level index file has special title
 
     // the top level index file should contain some extra information
-    if (title.includes("out")) {
+    if (index == 0) {
       let indexText = mainIndexTemplate.replace("_title", "Vulnerability Scan of Kubernetes cluster");
       indexText = indexText.replace("_clusterName", cluserName);
 
