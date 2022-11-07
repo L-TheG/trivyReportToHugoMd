@@ -49,7 +49,7 @@ async function createIndexFiles(cluserName, vulnSeverityCounts, misconfSeverityC
     // the top level index file should contain some extra information
     if (index == 0) {
       let indexText = mainIndexTemplate.replace("_title", "Vulnerability Scan of Kubernetes cluster");
-      indexText = indexText.replace("_clusterName", cluserName);
+      indexText = indexText.replace("_clusterName", cluserName + "-----------");
 
       indexText = indexText.replace("_vulnCount", vulnSeverityCounts.overallCount);
       indexText = indexText.replace("_criticalVuln", vulnSeverityCounts.criticalSeverity);
