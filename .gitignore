@@ -2,3 +2,4 @@
 /build
 src/data/out/*
 src/data/report.json
+*.zip
