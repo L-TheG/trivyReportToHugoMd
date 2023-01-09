@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/index.js --severity=CRITICAL,HIGH --exclude=test1"
+    "build": "tsc -p .",
+    "start": "node build/index.js",
+    "dev_build": "rimraf ./build && tsc",
+    "dev": "npm run build && node build/index.js --severity=CRITICAL,HIGH --exclude=test1"
   },
   "keywords": [],
   "author": "",

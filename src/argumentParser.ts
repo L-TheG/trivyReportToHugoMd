@@ -1,4 +1,4 @@
-import { setOutDir } from "./consts";
+import { setOutDir } from "./consts.js";
 
 export function getArguments() {
   const args = process.argv.slice(2);
