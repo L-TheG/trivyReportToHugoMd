@@ -1,3 +1,5 @@
+import { setOutDir } from "./consts";
+
 export function getArguments() {
   const args = process.argv.slice(2);
   args.forEach((argument) => {
@@ -9,6 +11,9 @@ export function getArguments() {
     }
     if (argument.includes("--exclude")) {
       excludedNamespaces = argument.split("=")[1].split(",");
+    }
+    if (argument.includes("--outDir")) {
+      setOutDir(argument.split("=")[1]);
     }
   });
   if (includedNamespaces !== undefined && excludedNamespaces !== undefined) {
