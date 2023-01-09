@@ -22,6 +22,6 @@ export function getArguments() {
   }
 }
 
-export let includedNamespaces: string[];
-export let excludedNamespaces: string[];
-export let severities: string[];
+export let includedNamespaces: string[] = [];
+export let excludedNamespaces: string[] = [];
+export let severities: string[] = [];
