@@ -16,7 +16,7 @@ export function getArguments() {
       setOutDir(argument.split("=")[1]);
     }
   });
-  if (includedNamespaces !== undefined && excludedNamespaces !== undefined) {
+  if (includedNamespaces.length > 0 && excludedNamespaces.length > 0) {
     console.log("Including and excluding namespaces at the same time does not work");
     process.exit(1);
   }
