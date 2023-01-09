@@ -62,17 +62,6 @@ async function createIndexFiles(
     if (index == 0) {
       let indexText = mainIndexTemplate.replace("_title", "Vulnerability Scan of Kubernetes cluster");
       indexText = indexText.replace("_clusterName", cluserName);
-
-      indexText = indexText.replace("_vulnCount", vulnSeverityCounts.overallCount.toString());
-      indexText = indexText.replace("_criticalVuln", vulnSeverityCounts.criticalSeverity.toString());
-      indexText = indexText.replace("_highVuln", vulnSeverityCounts.highSeverity.toString());
-
-      indexText = indexText.replace("_misconfCount", misconfSeverityCounts.overallCount.toString());
-      indexText = indexText.replace("_criticalMisconf", misconfSeverityCounts.criticalSeverity.toString());
-      indexText = indexText.replace("_highMisconf", misconfSeverityCounts.highSeverity.toString());
-
-      // indexText = indexText.replace("_misconfCount", misconfCount);
-
       writeFileSync(dir + "/" + "_index.md", indexText);
     } else {
       writeFileSync(dir + "/" + "_index.md", indexTemplate.replace("_title", title));

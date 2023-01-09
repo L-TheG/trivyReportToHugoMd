@@ -3,17 +3,6 @@ title = "_title"
 +++
 #### Target of scan: _clusterName
 
-{{% alert theme="info" %}}**Vulnerabilities found:** _vulnCount{{% /alert %}}
-{{% alert theme="danger" %}}**CRITICAL Severity:** _criticalVuln{{% /alert %}}
-{{% alert theme="warning" %}}**HIGH Severity:** _highVuln{{% /alert %}}
-
----
-
-{{% alert theme="info" %}}**Misconfigurations found:** _misconfCount{{% /alert %}}
-{{% alert theme="danger" %}}**CRITICAL Severity:** _criticalMisconf{{% /alert %}}
-{{% alert theme="warning" %}}**HIGH Severity:** _highMisconf{{% /alert %}}
-
-
----
+Result of Kubernetes Scan.
 
 {{% children style="h5" depth="3" %}}
