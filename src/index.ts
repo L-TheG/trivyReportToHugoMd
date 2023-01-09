@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { readFile } from "fs/promises";
 import { sep } from "path";
 import { getArguments, severities } from "./argumentParser.js";
@@ -18,32 +18,28 @@ await main();
 
 async function main() {
   getArguments();
+  if (!existsSync(outDir)) {
+    mkdirSync(outDir, { recursive: true });
+  }
+
   const trivyJsonReport: TrivyReport = JSON.parse(readFileSync("./report.json", "utf-8"));
 
-  const vulnerabilities: Vulnerability[] = getVulnerableComponents(trivyJsonReport.Vulnerabilities).filter((vulnerability) => {
-    if (severities.length > 0) {
-      severities.includes(vulnerability.Severity);
-    } else {
-      true;
-    }
-  });
-
-  const misconfigurations: Misconfiguration[] = getMisconfiguredComponents(trivyJsonReport.Misconfigurations).filter((misconfiguration) => {
-    if (severities.length > 0) {
-      severities.includes(misconfiguration.Severity);
-    } else {
-      true;
-    }
-  });
+  let vulnerabilities: Vulnerability[] = getVulnerableComponents(trivyJsonReport.Vulnerabilities);
+  let misconfigurations: Misconfiguration[] = getMisconfiguredComponents(trivyJsonReport.Misconfigurations);
+  if (severities.length > 0) {
+    vulnerabilities = vulnerabilities.filter((vulnerability) => severities.includes(vulnerability.Severity));
+    misconfigurations = misconfigurations.filter((misconfiguration) => severities.includes(misconfiguration.Severity));
+  }
 
   console.log(vulnerabilities.length, " Vulnerabilities with severity: ", severities, " found.");
   console.log(misconfigurations.length, " Misconfigurations with severity: ", severities, " found.");
 
   const vulnSeverityCounts = countSeverityKinds(vulnerabilities);
-  const misconfSeverityCounts = countSeverityKinds(misconfigurations);
-
   await createVulnerabilityFiles(vulnerabilities);
+
+  const misconfSeverityCounts = countSeverityKinds(misconfigurations);
   await createMisconfigurationFiles(misconfigurations);
+
   await createIndexFiles(trivyJsonReport.ClusterName, vulnSeverityCounts, misconfSeverityCounts);
 }
 

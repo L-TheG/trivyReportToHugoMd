@@ -4,4 +4,6 @@ export const mainIndexFileTemplate = "./hugoTemplates/mainIndexFileTemplate.txt"
 export const vulnTemplate = "./hugoTemplates/vulnerabilityReportTemplate.txt";
 export const misconfTemplate = "./hugoTemplates/misconfigurationReportTemplate.txt";
 
-export const setOutDir = (newDir: string) => (outDir = newDir);
+export const setOutDir = function (newDir: string) {
+  outDir = newDir;
+};

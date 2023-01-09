@@ -8,7 +8,7 @@
     "build": "tsc -p .",
     "start": "node build/index.js",
     "dev_build": "rimraf ./build && tsc",
-    "dev": "npm run build && node build/index.js --severity=CRITICAL,HIGH --exclude=test1"
+    "dev": "npm run dev_build && node build/index.js --severity=CRITICAL,HIGH"
   },
   "keywords": [],
   "author": "",
