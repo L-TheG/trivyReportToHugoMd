@@ -21,11 +21,19 @@ async function main() {
   const trivyJsonReport: TrivyReport = JSON.parse(readFileSync("./report.json", "utf-8"));
 
   const vulnerabilities: Vulnerability[] = getVulnerableComponents(trivyJsonReport.Vulnerabilities).filter((vulnerability) => {
-    if (severities.length > 0) severities.includes(vulnerability.Severity);
+    if (severities.length > 0) {
+      severities.includes(vulnerability.Severity);
+    } else {
+      true;
+    }
   });
 
   const misconfigurations: Misconfiguration[] = getMisconfiguredComponents(trivyJsonReport.Misconfigurations).filter((misconfiguration) => {
-    if (severities.length > 0) severities.includes(misconfiguration.Severity);
+    if (severities.length > 0) {
+      severities.includes(misconfiguration.Severity);
+    } else {
+      true;
+    }
   });
 
   console.log(vulnerabilities.length, " Vulnerabilities with severity: ", severities, " found.");
