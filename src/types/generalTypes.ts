@@ -6,3 +6,7 @@ export type TrivyReport = {
   Misconfigurations: MisconfigurationScannedComponent[];
   Vulnerabilities: VulnerabilityScannedComponent[];
 };
+
+export type Filterable = {
+  Namespace: string;
+};
