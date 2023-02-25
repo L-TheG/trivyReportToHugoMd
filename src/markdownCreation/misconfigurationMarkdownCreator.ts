@@ -24,12 +24,17 @@ function buildMisconfMarkdown(template: string, misconfiguration: Misconfigurati
     const regexp = new RegExp(`${replaceString}`, "gi");
 
     // convert part that points to specific code, to markdown code block
-    if (key === "CauseMetadata" && misconfiguration["CauseMetadata"] !== null && misconfiguration["CauseMetadata"] !== undefined) {
-      const codeData = buildMisconfCodeBlock(misconfiguration["CauseMetadata"]);
-      template = template.replace("_codeBlock", codeData.code);
-      template = template.replace("_firstLineNumber", codeData.startLine.toString());
-      const highlightLineString = codeData.linesToHighlight.toString().replace(new RegExp(",", "gi"), " ");
-      template = template.replace("_linesToHighlight", highlightLineString);
+    if (key === "CauseMetadata") {
+      const backupTemplate = template;
+      try {
+        const codeData = buildMisconfCodeBlock(misconfiguration["CauseMetadata"]);
+        template = template.replace("_codeBlock", codeData.code);
+        template = template.replace("_firstLineNumber", codeData.startLine.toString());
+        const highlightLineString = codeData.linesToHighlight.toString().replace(new RegExp(",", "gi"), " ");
+        template = template.replace("_linesToHighlight", highlightLineString);
+      } catch (e) {
+        template = backupTemplate;
+      }
     }
 
     // create expandable markdown list element
@@ -54,6 +59,7 @@ function buildMisconfCodeBlock(misconfData: Misconfiguration["CauseMetadata"]) {
   const startLine = misconfData.StartLine;
   const linesToHighlight: number[] = [];
   let code = "";
+
   misconfData.Code.Lines.forEach((line, index) => {
     code = code + line.Content + "\n";
     if (line.IsCause) linesToHighlight.push(index);
