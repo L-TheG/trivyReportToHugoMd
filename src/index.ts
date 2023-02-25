@@ -10,7 +10,7 @@ import { getVulnerableComponents } from "./reportDataTransformation/vulnerabilit
 import { Filterable, TrivyReport } from "./types/generalTypes.js";
 import { Misconfiguration } from "./types/misconfigurationTypes.js";
 import { Vulnerability } from "./types/vulnerabilityTypes.js";
-import { countSeverityKinds, getDirectoriesRecursive } from "./utils.js";
+import { getDirectoriesRecursive } from "./utils.js";
 
 await main();
 
@@ -42,10 +42,7 @@ async function main() {
   console.log(vulnerabilities.length, " Vulnerabilities with severity: ", severities, " found.");
   console.log(misconfigurations.length, " Misconfigurations with severity: ", severities, " found.");
 
-  const vulnSeverityCounts = countSeverityKinds(vulnerabilities);
   await createVulnerabilityFiles(vulnerabilities);
-
-  const misconfSeverityCounts = countSeverityKinds(misconfigurations);
   await createMisconfigurationFiles(misconfigurations);
 
   await createIndexFiles(trivyJsonReport.ClusterName);
@@ -59,7 +56,7 @@ function filterListsPartial<T extends Filterable>(vulnerabilities: T[], filterLi
   for (let vulnerability of vulnerabilities) {
     let match = false;
     for (let element2 of filterList) {
-      if (vulnerability.Namespace.includes(element2) === include) {
+      if (vulnerability.Namespace !== undefined && vulnerability.Namespace.includes(element2) === include) {
         match = true;
         break;
       }
