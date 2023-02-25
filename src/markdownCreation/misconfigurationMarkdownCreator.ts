@@ -24,7 +24,7 @@ function buildMisconfMarkdown(template: string, misconfiguration: Misconfigurati
     const regexp = new RegExp(`${replaceString}`, "gi");
 
     // convert part that points to specific code, to markdown code block
-    if (key === "CauseMetadata" && value !== undefined) {
+    if (key === "CauseMetadata" && value !== null) {
       const codeData = buildMisconfCodeBlock(misconfiguration["CauseMetadata"]);
       template = template.replace("_codeBlock", codeData.code);
       template = template.replace("_firstLineNumber", codeData.startLine.toString());
